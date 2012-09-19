@@ -41,6 +41,9 @@ set hidden
 set wildchar=<Tab> wildmenu wildmode=list:longest,list:full
 set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*
 
+" setup dbext to use sqlite3 by default"
+let g:dbext_default_SQLITE_bin='sqlite3'
+
 set switchbuf=useopen
 " Mappings to access buffers (don't use "\p" because a
 " delay before pressing "p" would accidentally paste).
@@ -344,10 +347,10 @@ nnoremap <leader>. :call OpenTestAlternate()<cr>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ARROW KEYS ARE UNACCEPTABLE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <Left> <Nop>
-map <Right> <Nop>
-map <Up> <Nop>
-map <Down> <Nop>
+""map <Left> <Nop>
+""map <Right> <Nop>
+""map <Up> <Nop>
+""map <Down> <Nop>
 
 let g:vroom_use_vimux=1
 
