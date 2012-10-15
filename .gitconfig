@@ -38,14 +38,5 @@
 
 [merge]
   tool = vimdiff
-; [http]
-;   sslKey = /Users/avetia01/.subversion/artem_proper_cert.p12
-; 	proxy = http://www-cache.reith.bbc.co.uk:80
-; [svn]
-;   rmdir = true
-; [https]
-; 	proxy = http://www-cache.reith.bbc.co.uk:80
 [github]
 	user = zimakki
-[ghi]
-	token = 7d4ef88bda4e481c3d042beaf25689eda1305a38
