@@ -5,7 +5,7 @@ syntax on
 set cursorline
 set spell
 
-imap <C-n> <C-n><C-p>
+imap <tab><tab> <C-n><C-p>
 
 set t_Co=256
 imap jj <esc>
