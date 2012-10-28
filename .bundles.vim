@@ -61,6 +61,7 @@ Bundle 'TwitVim'
 Bundle 'haskell.vim'
 Bundle 'keepcase.vim'
 Bundle 'dbext.vim'
+Bundle 'SuperTab'
 " non github repos
 ""Bundle 'git://git.wincent.com/command-t.git'
 

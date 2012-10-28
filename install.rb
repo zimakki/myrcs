@@ -50,8 +50,8 @@ end
 
 def git_config
   `git config --global core.excludesfile ~/.gitignore`
-  `git config --global user.name artemave`
-  `git config --global user.email artemave@gmail.com`
+  `git config --global user.name zimakki`
+  `git config --global user.email zimakki@gmail.com`
 end
 
 puts 'Updating git submodules...'
