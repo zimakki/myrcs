@@ -42,7 +42,8 @@ set hidden
 
 " command line completion
 set wildchar=<Tab> wildmenu wildmode=list:longest,list:full
-set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*
+set wildignore+=*.o,*.obj,.git*,*.rbc,*.class,.svn,vendor/gems/*,*/tmp/*,*.so,*.swp,*.zip,*/images/*,*/cache/*,scrapers/products/*
+
 
 " setup dbext to use sqlite3 by default"
 let g:dbext_default_SQLITE_bin='sqlite3'
