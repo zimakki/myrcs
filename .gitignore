@@ -49,3 +49,8 @@ target
 screenshots
 rest-assured.db
 rest-assured.log
+
+# some vim bundle stuff that should not be checked in..
+.vim/bundle/
+.vim/snippets
+path_to_backup.txt
