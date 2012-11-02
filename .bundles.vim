@@ -47,7 +47,7 @@ Bundle 'lucapette/vim-ruby-doc'
 " using viml native version of vimux - no dependency on ruby
 Bundle 'NickLaMuro/vimux'
 Bundle 'mileszs/ack.vim'
-""Bundle 'Lokaltog/vim-easymotion'
+Bundle 'Lokaltog/vim-easymotion'
 " vim-scripts repos
 Bundle 'L9'
 Bundle 'FuzzyFinder'
@@ -64,6 +64,9 @@ Bundle 'dbext.vim'
 Bundle 'SuperTab'
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'ctrlp.vim'
+Bundle 'majutsushi/tagbar'
+Bundle 'Shougo/neocomplcache'
+
 " non github repos
 ""Bundle 'git://git.wincent.com/command-t.git'
 

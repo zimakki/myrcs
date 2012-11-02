@@ -21,8 +21,8 @@ set showmatch
 set showcmd
 
 " make tab in v mode ident code
-vmap <tab> >gv
-vmap <s-tab> <gv
+" vmap <tab> >gv
+" vmap <s-tab> <gv
 
 " paste mode - this will avoid unexpected effects when you
 " cut or copy some text from one window and paste it in Vim.
@@ -392,3 +392,12 @@ nnoremap yi/ T/y,
 nnoremap ya/ F/y,
 nnoremap vi/ T/v,
 nnoremap va/ F/v,
+
+""nnoremap <Leader>tt :TagbarOpenAutoClose<CR>
+set TagbarOpen
+
+let g:neocomplcache_enable_at_startup = 1
+
+" omni completion"
+set ofu=syntaxcomplete#Complete
+
