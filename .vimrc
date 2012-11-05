@@ -393,8 +393,7 @@ nnoremap ya/ F/y,
 nnoremap vi/ T/v,
 nnoremap va/ F/v,
 
-""nnoremap <Leader>tt :TagbarOpenAutoClose<CR>
-set TagbarOpen
+nnoremap <Leader>tt :TagbarOpenAutoClose<CR
 
 let g:neocomplcache_enable_at_startup = 1
 
