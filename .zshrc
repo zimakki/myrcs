@@ -111,3 +111,5 @@ bindkey "^[s" insert-sudo
 
 # particularly useful to undo glob expansion
 bindkey '^_' undo
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

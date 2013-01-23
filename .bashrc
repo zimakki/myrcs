@@ -94,3 +94,5 @@ esac
 
 export PS1="\[$PS_COLOR\]\u:\w\[$YELLOW\]\$(parsegitbranch)$ \[$NO_COLOR\]"
 
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

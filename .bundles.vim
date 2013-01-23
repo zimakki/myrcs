@@ -49,8 +49,8 @@ Bundle 'NickLaMuro/vimux'
 Bundle 'mileszs/ack.vim'
 Bundle 'Lokaltog/vim-easymotion'
 " vim-scripts repos
-Bundle 'L9'
-Bundle 'FuzzyFinder'
+""Bundle 'L9'
+""Bundle 'FuzzyFinder'
 Bundle 'AutoClose'
 Bundle 'bufexplorer.zip'
 Bundle 'matchit.zip'
@@ -66,6 +66,7 @@ Bundle 'Lokaltog/vim-powerline'
 Bundle 'ctrlp.vim'
 Bundle 'majutsushi/tagbar'
 Bundle 'Shougo/neocomplcache'
+Bundle 'LogViewer'
 
 " non github repos
 ""Bundle 'git://git.wincent.com/command-t.git'

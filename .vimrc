@@ -162,8 +162,8 @@ function! s:RunShellCommand(cmdline)
   1
 endfunction
 
-nnoremap <Leader>f :FufCoverageFile<CR>
-nnoremap <Leader>B :FufBuffer<CR>
+nnoremap <Leader>f :CtrlP<CR>
+nnoremap <Leader>B :CtrlPBuffer<CR>
 
 function! s:GrepOpenBuffers(search, jump)
     call setqflist([])
@@ -399,4 +399,8 @@ let g:neocomplcache_enable_at_startup = 1
 
 " omni completion"
 set ofu=syntaxcomplete#Complete
+let NERDTreeHijackNetrw=1
 
+" Quick grep for word under the cursor in rails app
+noremap <Leader>aa :Ack <cword> app<cr>
+noremap <Leader>as :Ack <cword> spec<cr>
