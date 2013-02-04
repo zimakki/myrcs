@@ -47,12 +47,6 @@ function take() {
   cd $1
 }
 
-#if command -v vimpager &> /dev/null; then
-  #export PAGER="vimpager"
-  #alias less=$PAGER 
-  #alias zless=$PAGER
-#fi
-
 if [ -f ~/.amazon_keys ]; then
   . ~/.amazon_keys
 fi
@@ -62,18 +56,33 @@ if [ -f ~/.local_env ]; then
 fi
 
 if command -v brew &> /dev/null; then
-  export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+  export ANDROID_HOME=/Users/artem/adt-bundle/sdk
+  export PATH="$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:/usr/local/share/python:/usr/local/bin:/usr/local/sbin:$PATH"
 fi
 
-PATH=$PATH:$HOME/bin:$HOME/.rvm/bin
-
-if [[ -s ~/.rvm/scripts/rvm ]] ; then
-  source ~/.rvm/scripts/rvm
-elif [[ -s "/usr/local/rvm/scripts/rvm" ]] ; then
-  source "/usr/local/rvm/scripts/rvm"
-fi
+export PATH="/usr/local/heroku/bin:$PATH"
 
 # find snippet
 function fsnip() {
-  egrep -C2 -RS $1 "$HOME/.vim/snippets/"
+  egrep -C1 -RS $1 "$HOME/.vim/bundle/snipmate-snippets/snippets/"
 }
+
+if command -v rbenv &> /dev/null; then
+  eval "$(rbenv init -)"
+fi
+
+export RUBY_HEAP_MIN_SLOTS=1000000
+export RUBY_HEAP_SLOTS_INCREMENT=1000000
+export RUBY_HEAP_SLOTS_GROWTH_FACTOR=1
+export RUBY_GC_MALLOC_LIMIT=100000000
+export RUBY_HEAP_FREE_MIN=500000
+
+# less colors (for man)
+export LESS_TERMCAP_mb=$'\E[01;31m'
+export LESS_TERMCAP_md=$'\E[01;34m'
+export LESS_TERMCAP_me=$'\E[0m'
+export LESS_TERMCAP_se=$'\E[0m'
+export LESS_TERMCAP_so=$'\E[01;44;33m'
+export LESS_TERMCAP_ue=$'\E[0m'
+export LESS_TERMCAP_us=$'\E[01;32m'
+alias man='man -P less'

@@ -1,5 +1,5 @@
 source ~/.bundles.vim
- 
+
 syntax on
 
 set cursorline
@@ -44,7 +44,6 @@ set hidden
 set wildchar=<Tab> wildmenu wildmode=list:longest,list:full
 set wildignore+=*.o,*.obj,.git*,*.rbc,*.class,.svn,vendor/gems/*,*/tmp/*,*.so,*.swp,*.zip,*/images/*,*/cache/*,scrapers/products/*
 
-
 " setup dbext to use sqlite3 by default"
 let g:dbext_default_SQLITE_bin='sqlite3'
 
@@ -64,10 +63,7 @@ nnoremap <Leader>7 :7b<CR>
 nnoremap <Leader>8 :8b<CR>
 nnoremap <Leader>9 :9b<CR>
 nnoremap <Leader>0 :10b<CR>
-
-" Useful in spec files to print out lines with 'it', 'describe' and 'context'"
-nnoremap <Leader>d :g/\vit\|describe\|context/p<CR>
-
+"
 " It's useful to show the buffer number in the status line.
 set laststatus=2 statusline=%02n:%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
@@ -251,7 +247,7 @@ vnoremap / /\v
 " Better comand-line editing
 cnoremap <C-j> <t_kd>
 cnoremap <C-k> <t_ku>
-cnoremap <C-a> <Home>
+cnoremap <C-^> <Home>
 cnoremap <C-e> <End>
 
 " Drag Current Line/s Vertically
@@ -360,19 +356,6 @@ nnoremap <leader>. :call OpenTestAlternate()<cr>
 ""map <Up> <Nop>
 ""map <Down> <Nop>
 
-let g:vroom_use_vimux=1
-
-nnoremap <Leader>vp :VimuxPromptCommand<CR>
-nnoremap <Leader>vl :VimuxRunLastCommand<CR>
-nnoremap <Leader>vi :VimuxInspectRunner<CR>
-nnoremap <Leader>vq :VimuxCloseRunner<CR>
-nnoremap <Leader>vx :VimuxClosePanes<CR>
-nnoremap <Leader>vs :VimuxInterruptRunner<CR>
-nnoremap <Leader>vc :VimuxClearRunnerHistory<CR>
-
-let g:VimuxOrientation = "h"
-let g:VimuxHeight = "40"
-
 " Fake '|' as text object
 nnoremap di\| T\|d,
 nnoremap da\| F\|d,
@@ -395,12 +378,120 @@ nnoremap va/ F/v,
 
 nnoremap <Leader>tt :TagbarOpenAutoClose<CR
 
+let NERDTreeHijackNetrw=1
+
+set list listchars=trail:·
+
+let g:ctrlp_show_hidden = 1
+
+" disable folding
+set nofoldenable
+
+" alias backtick to signle quote
+map ' `
+
 let g:neocomplcache_enable_at_startup = 1
+let g:neocomplcache_enable_smart_case = 1
+let g:neocomplcache_min_syntax_length = 3
+let g:neocomplcache_enable_camel_case_completion = 1
+let g:neocomplcache_enable_underbar_completion = 1
 
 " omni completion"
 set ofu=syntaxcomplete#Complete
-let NERDTreeHijackNetrw=1
+
+" PowerLine recommeneded:
+set laststatus=2   " Always show the statusline"
+set encoding=utf-8 " Necessary to show Unicode glyphs"
+
+fun! RangerChooser()
+  exec "silent !ranger --choosefile=/tmp/chosenfile " . expand("%:p:h")
+  if filereadable('/tmp/chosenfile')
+    exec 'edit ' . system('cat /tmp/chosenfile')
+    call system('rm /tmp/chosenfile')
+  endif
+  redraw!
+endfun
+map <Leader><Leader>r :call RangerChooser()<CR>
+
+""set cursorline
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" RUNNING TESTS
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map <leader>t :call RunTestFile()<cr>
+map <leader>T :call RunNearestTest()<cr>
+
+function! RunTestFile(...)
+  if a:0
+    let command_suffix = a:1
+  else
+    let command_suffix = ""
+  endif
+
+  " Run the tests for the previously-marked file.
+  let in_test_file = match(expand("%"), '\(.feature\|_spec.rb\)$') != -1
+  if in_test_file
+    call SetTestFile()
+  elseif !exists("t:grb_test_file")
+    return
+  end
+  call RunTests(t:grb_test_file . command_suffix)
+endfunction
+
+function! RunNearestTest()
+  let spec_line_number = line('.')
+  call RunTestFile(":" . spec_line_number)
+endfunction
+
+function! SetTestFile()
+  " Set the spec file that tests will be run for.
+  let t:grb_test_file=@%
+endfunction
+
+function! RunTests(filename)
+  :wa
+  if match(a:filename, '\.feature') != -1
+    let l:command = "zeus cucumber " . a:filename
+  else
+    let l:command = "zeus rspec -c " . a:filename
+  end
+  call system("tmux select-window -t " . g:run_tests_in_window)
+  call system('tmux set-buffer "' . l:command . "\n\"")
+  call system('tmux paste-buffer -d -t ' . g:run_tests_in_window)
+endfunction
+
+let g:run_tests_in_window = 1
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" RUNNING TESTS (END)
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Quick grep for word under the cursor in rails app
 noremap <Leader>aa :Ack <cword> app<cr>
 noremap <Leader>as :Ack <cword> spec<cr>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" SHOW SPEC INDEX
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! ShowSpecIndex()
+  call setloclist(0, [])
+
+  for line_number in range(1,line('$'))
+    if getline(line_number) =~ '^ *\(\<its\?\>\|\<describe\>\|\<context\>\)'
+      let expr = printf('%s:%s:%s', expand("%"), line_number, substitute(getline(line_number), ' ', nr2char(160), ''))
+      laddexpr expr
+    endif
+  endfor
+
+  lopen
+
+  " hide filename and linenumber
+  set conceallevel=2 concealcursor=nc
+  syntax match qfFileName /^[^|]*|[^|]*| / transparent conceal
+endfunction
+
+nnoremap <Leader>si :call ShowSpecIndex()<cr>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" SHOW SPEC INDEX (END)
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

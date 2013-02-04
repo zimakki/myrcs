@@ -54,3 +54,8 @@ rest-assured.log
 .vim/bundle/
 .vim/snippets
 path_to_backup.txt
+#
+# zeus
+
+zeus.json
+custom_plan.rb
