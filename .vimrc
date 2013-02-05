@@ -495,3 +495,8 @@ nnoremap <Leader>si :call ShowSpecIndex()<cr>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SHOW SPEC INDEX (END)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"needed to put this line in once i installed the YankRing plugin as it
+"overrides the CtrlP plugin"
+nnoremap <c-f> :CtrlP<cr>
+nnoremap <c-b> :CtrlPBuffer<cr>

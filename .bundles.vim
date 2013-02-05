@@ -31,7 +31,6 @@ Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'tomtom/tlib_vim'
 Bundle 'tomtom/tcomment_vim'
 Bundle 'groenewege/vim-less'
-Bundle 'artemave/slowdown.vim'
 Bundle 'skryl/tslime.vim'
 Bundle 'VimClojure'
 
@@ -67,6 +66,8 @@ Bundle 'majutsushi/tagbar'
 Bundle 'LogViewer'
 Bundle 'Shougo/neocomplcache'
 Bundle 'kyangk/sessionman.vim'
+Bundle 'YankRing.vim'
+
 " non github repos
 ""Bundle 'git://git.wincent.com/command-t.git'
 
