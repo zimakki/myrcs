@@ -3,7 +3,7 @@ source ~/.bundles.vim
 syntax on
 
 set cursorline
-set spell
+" set spell
 
 set t_Co=256
 imap jj <esc>
@@ -223,8 +223,9 @@ let g:gist_open_browser_after_post = 1
 nmap <F6> :GundoToggle<CR>
 imap <F6> <ESC>:GundoToggle<CR>
 
+let g:molokai_original = 0
 colorscheme molokai
-hi Search ctermbg=black
+" hi Search ctermbg=black
 
 set scrolloff=3 " Keep 3 lines below and above the cursor"
 
