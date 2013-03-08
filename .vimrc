@@ -511,3 +511,12 @@ function! CleverTab()
    endif
 endfunction
 inoremap <Tab> <C-R>=CleverTab()<CR>
+
+""nnoremap ¾ :vertical resize -10<cr>
+nnoremap ¾ :echo 1<cr>
+
+"better support for mouse. scrolling should now work and clicking too! Artem
+"really not going to like this one"
+set mouse=a
+
+
