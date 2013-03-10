@@ -68,7 +68,6 @@ Bundle 'Shougo/neocomplcache'
 Bundle 'kyangk/sessionman.vim'
 Bundle 'YankRing.vim'
 Bundle 'airblade/vim-gitgutter'
-Bundle 'skammer/vim-css-color'
 
 " non github repos
 ""Bundle 'git://git.wincent.com/command-t.git'
