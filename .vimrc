@@ -519,3 +519,6 @@ nnoremap ¾ :echo 1<cr>
 nnoremap H ^
 nnoremap L g_
 
+" better support for the mouse"
+set mouse=a
+
