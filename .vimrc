@@ -522,8 +522,19 @@ nnoremap L g_
 " better support for the mouse"
 set mouse=a
 
+" when moving from window to window the below turns off cursorcolumn,
+" cursorline and relativenumber. Hopefully this will help with which window is
+" active.."
 augroup BgHighlight
   autocmd!
   autocmd WinEnter * set relativenumber
+  autocmd WinEnter * set cursorline
+  autocmd WinEnter * set cursorcolumn
+
   autocmd WinLeave * set norelativenumber
+  autocmd WinLeave * set nocursorline
+  autocmd WinLeave * set nocursorcolumn
 augroup END
+
+
+
