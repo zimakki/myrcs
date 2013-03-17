@@ -512,8 +512,8 @@ function! CleverTab()
 endfunction
 inoremap <Tab> <C-R>=CleverTab()<CR>
 
-""nnoremap ¾ :vertical resize -10<cr>
-nnoremap ¾ :echo 1<cr>
+nnoremap ¯ :vertical resize -10<cr>
+nnoremap ˘ :vertical resize +10<cr>
 
 " easier navigation to the beginning and end of a line"
 nnoremap H ^
@@ -522,3 +522,8 @@ nnoremap L g_
 " better support for the mouse"
 set mouse=a
 
+augroup BgHighlight
+  autocmd!
+  autocmd WinEnter * set relativenumber
+  autocmd WinLeave * set norelativenumber
+augroup END
