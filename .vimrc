@@ -536,5 +536,9 @@ augroup BgHighlight
   autocmd WinLeave * set nocursorcolumn
 augroup END
 
+" the below changes the horrible dotted line between windows... notice that
+" there is a space after the \ that needs to be there"
+set fillchars=vert:\ ,stl:\ ,stlnc:\ 
 
-
+" share clipboard with windows clipboard
+set clipboard+=unnamed clipboard
