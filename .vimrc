@@ -540,5 +540,3 @@ augroup END
 " there is a space after the \ that needs to be there"
 set fillchars=vert:\ ,stl:\ ,stlnc:\ 
 
-" share clipboard with windows clipboard
-set clipboard+=unnamed clipboard
