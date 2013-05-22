@@ -69,7 +69,6 @@ Bundle 'kyangk/sessionman.vim'
 Bundle 'YankRing.vim'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'nelstrom/vim-visual-star-search'
-Bundle 'nelstrom/vim-visual-star-search'
 Bundle 'altercation/vim-colors-solarized'
 
 " non github repos
