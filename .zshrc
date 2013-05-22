@@ -5,7 +5,7 @@ ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="alanpeabody"
+ZSH_THEME="bira"
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
@@ -37,3 +37,16 @@ plugins=(git zsh-syntax-highlighting vi-mode)
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
+#
+# Using the below to show when I am in INSERT mode and when I am in NORMAL mode
+function zle-line-init zle-keymap-select {
+    RPS1="${${KEYMAP/vicmd/-- NORMAL --}/(main|viins)/-- INSERT --}"
+    RPS2=$RPS1
+    zle reset-prompt
+}
+zle -N zle-line-init
+zle -N zle-keymap-select
+
+# # VI MODE
+# bindkey -v
+# bindkey -M viins 'jj' vi-cmd-mode
