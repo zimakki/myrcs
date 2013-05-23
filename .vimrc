@@ -3,6 +3,8 @@ source ~/.bundles.vim
 syntax on
 
 set cursorline
+set cursorcolumn
+
 " set spell
 
 set t_Co=256
@@ -494,7 +496,7 @@ endfunction
 nnoremap <Leader>si :call ShowSpecIndex()<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" SHOW SPEC INDEX (END)
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "needed to put this line in once i installed the YankRing plugin as it
