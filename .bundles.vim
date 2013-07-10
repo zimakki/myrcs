@@ -70,6 +70,8 @@ Bundle 'YankRing.vim'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'nelstrom/vim-visual-star-search'
 Bundle 'altercation/vim-colors-solarized'
+Bundle 'mattn/webapi-vim'
+Bundle 'mattn/gist-vim'
 
 " non github repos
 ""Bundle 'git://git.wincent.com/command-t.git'
