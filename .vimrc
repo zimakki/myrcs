@@ -88,15 +88,6 @@ function! s:align()
   endif
 endfunction
 
-nnoremap <Leader>a= :Tabularize /=<CR>
-vnoremap <Leader>a= :Tabularize /=<CR>
-nnoremap <Leader>a: :Tabularize /:\zs/r0c1l0<CR>
-vnoremap <Leader>a: :Tabularize /:\zs/r0c1l0<CR>
-nnoremap <Leader>a> :Tabularize /=><CR>
-vnoremap <Leader>a> :Tabularize /=><CR>
-nnoremap <Leader>ae :Tabularize /==<CR>
-vnoremap <Leader>ae :Tabularize /==<CR>
-
 let g:LustyJugglerSuppressRubyWarning = 1
 
 function! MyCloseGdiff()
@@ -161,7 +152,7 @@ function! s:GrepOpenBuffers(search, jump)
     echo 'BufGrep:' ((matches) ? matches : 'No') 'matches found'
 endfunction
 com! -nargs=1 -bang BufGrep call <SID>GrepOpenBuffers('<args>', <bang>0)
-nnoremap <Leader>S :BufGrep 
+nnoremap <Leader>S :BufGrep
 
 " remap 'increase number' since C-a is captured by tmux/screen
 " Easier increment/decrement
@@ -266,104 +257,6 @@ nnoremap <c-l> <c-w>l
 " Insert a hash rocket with <c-l>
 imap <c-l> <space>=><space>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" PROMOTE VARIABLE TO RSPEC LET
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! PromoteToLet()
-  :normal! dd
-  " :exec '?^\s*it\>'
-  :normal! P
-  :.s/\(\w\+\) = \(.*\)$/let(:\1) { \2 }/
-  :normal ==
-endfunction
-:command! PromoteToLet :call PromoteToLet()
-:map <leader>p :PromoteToLet<cr>
-
-" Prevent Vim from clobbering the scrollback buffer. See
-" http://www.shallowsky.com/linux/noaltscreen.html
-set t_ti= t_te=
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" EXTRACT VARIABLE (SKETCHY)
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! ExtractVariable()
-  let name = input("Variable name: ")
-  if name == ''
-    return
-  endif
-  " Enter visual mode (not sure why this is needed since we're already in
-  " visual mode anyway)
-  normal! gv
-
-  " Replace selected text with the variable name
-  exec "normal c" . name
-  " Define the variable on the line above
-  exec "normal! O" . name . " = "
-  " Paste the original selected text to be the variable value
-  normal! $p
-endfunction
-vnoremap <leader>rv :call ExtractVariable()<cr>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" SWITCH BETWEEN TEST AND PRODUCTION CODE
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! OpenTestAlternate()
-  let new_file = AlternateForCurrentFile()
-  exec ':e ' . new_file
-endfunction
-function! AlternateForCurrentFile()
-  let current_file = expand("%")
-  let new_file = current_file
-  let in_spec = match(current_file, '^spec/') != -1
-  let going_to_spec = !in_spec
-  let in_app = match(current_file, '\<controllers\>') != -1 || match(current_file, '\<models\>') != -1 || match(current_file, '\<views\>') != -1
-  if going_to_spec
-    " if in_app
-    "   let new_file = substitute(new_file, '^app/', '', '')
-    " end
-    let new_file = substitute(new_file, '^\(app\|lib\)/', '', '')
-    let new_file = substitute(new_file, '\.rb$', '_spec.rb', '')
-    let new_file = 'spec/' . new_file
-  else
-    let new_file = substitute(new_file, '_spec\.rb$', '.rb', '')
-    let new_file = substitute(new_file, '^spec/', '', '')
-    let root_path = 'lib/'
-    if in_app
-      let root_path = 'app/'
-    end
-    let new_file = root_path . new_file
-  endif
-  return new_file
-endfunction
-nnoremap <leader>. :call OpenTestAlternate()<cr>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" ARROW KEYS ARE UNACCEPTABLE
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""map <Left> <Nop>
-""map <Right> <Nop>
-""map <Up> <Nop>
-""map <Down> <Nop>
-
-" Fake '|' as text object
-nnoremap di\| T\|d,
-nnoremap da\| F\|d,
-nnoremap ci\| T\|c,
-nnoremap ca\| F\|c,
-nnoremap yi\| T\|y,
-nnoremap ya\| F\|y,
-nnoremap vi\| T\|v,
-nnoremap va\| F\|v,
-
-" Fake '/' as text object
-nnoremap di/ T/d,
-nnoremap da/ F/d,
-nnoremap ci/ T/c,
-nnoremap ca/ F/c,
-nnoremap yi/ T/y,
-nnoremap ya/ F/y,
-nnoremap vi/ T/v,
-nnoremap va/ F/v,
 
 nnoremap <Leader>tt :TagbarOpenAutoClose<CR
 
@@ -402,103 +295,14 @@ fun! RangerChooser()
 endfun
 map <Leader><Leader>r :call RangerChooser()<CR>
 
-""set cursorline
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" RUNNING TESTS
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <leader>t :call RunTestFile()<cr>
-map <leader>T :call RunNearestTest()<cr>
-
-function! RunTestFile(...)
-  if a:0
-    let command_suffix = a:1
-  else
-    let command_suffix = ""
-  endif
-
-  " Run the tests for the previously-marked file.
-  let in_test_file = match(expand("%"), '\(.feature\|_spec.rb\)$') != -1
-  if in_test_file
-    call SetTestFile()
-  elseif !exists("t:grb_test_file")
-    return
-  end
-  call RunTests(t:grb_test_file . command_suffix)
-endfunction
-
-function! RunNearestTest()
-  let spec_line_number = line('.')
-  call RunTestFile(":" . spec_line_number)
-endfunction
-
-function! SetTestFile()
-  " Set the spec file that tests will be run for.
-  let t:grb_test_file=@%
-endfunction
-
-function! RunTests(filename)
-  :wa
-  if match(a:filename, '\.feature') != -1
-    let l:command = "zeus cucumber " . a:filename
-  else
-    let l:command = "zeus rspec -c " . a:filename
-  end
-  call system("tmux select-window -t " . g:run_tests_in_window)
-  call system('tmux set-buffer "' . l:command . "\n\"")
-  call system('tmux paste-buffer -d -t ' . g:run_tests_in_window)
-endfunction
-
-let g:run_tests_in_window = 1
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" RUNNING TESTS (END)
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 " Quick grep for word under the cursor in rails app
 noremap <Leader>aa :Ack <cword> app<cr>
 noremap <Leader>as :Ack <cword> spec<cr>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" SHOW SPEC INDEX
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! ShowSpecIndex()
-  call setloclist(0, [])
-
-  for line_number in range(1,line('$'))
-    if getline(line_number) =~ '^ *\(\<its\?\>\|\<describe\>\|\<context\>\)'
-      let expr = printf('%s:%s:%s', expand("%"), line_number, substitute(getline(line_number), ' ', nr2char(160), ''))
-      laddexpr expr
-    endif
-  endfor
-
-  lopen
-
-  " hide filename and linenumber
-  set conceallevel=2 concealcursor=nc
-  syntax match qfFileName /^[^|]*|[^|]*| / transparent conceal
-endfunction
-
-nnoremap <Leader>si :call ShowSpecIndex()<cr>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 "needed to put this line in once i installed the YankRing plugin as it
 "overrides the CtrlP plugin"
-nnoremap <c-f> :CtrlP<cr>
-nnoremap <c-b> :CtrlPBuffer<cr>
-
-
-function! CleverTab()
-   if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
-      return "\<Tab>"
-   else
-      return "\<C-N>"
-   endif
-endfunction
-inoremap <Tab> <C-R>=CleverTab()<CR>
+" nnoremap <c-f> :CtrlP<cr>
+" nnoremap <c-b> :CtrlPBuffer<cr>
 
 nnoremap ¯ :vertical resize -10<cr>
 nnoremap ˘ :vertical resize +10<cr>
@@ -526,5 +330,4 @@ augroup END
 
 " the below changes the horrible dotted line between windows... notice that
 " there is a space after the \ that needs to be there"
-set fillchars=vert:\ ,stl:\ ,stlnc:\ 
-
+set fillchars=vert:\ ,stl:\ ,stlnc:\

@@ -9,7 +9,7 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 " let Vundle manage Vundle
-" required! 
+" required!
 Bundle 'gmarik/vundle'
 
 " My Bundles here:
@@ -61,7 +61,6 @@ Bundle 'haskell.vim'
 Bundle 'keepcase.vim'
 Bundle 'dbext.vim'
 Bundle 'SuperTab'
-Bundle 'Lokaltog/vim-powerline'
 Bundle 'majutsushi/tagbar'
 Bundle 'LogViewer'
 Bundle 'Shougo/neocomplcache'
@@ -72,11 +71,18 @@ Bundle 'nelstrom/vim-visual-star-search'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'mattn/webapi-vim'
 Bundle 'mattn/gist-vim'
+Bundle 'bling/vim-airline'
+Bundle 'elzr/vim-json'
+" Bundle 'jnwhiteh/vim-golang'
+Bundle 'uggedal/go-vim'
+Bundle 'Blackrush/vim-gocode'
+Bundle 'vim-scripts/MultipleSearch2.vim'
+
 
 " non github repos
 ""Bundle 'git://git.wincent.com/command-t.git'
 
-filetype plugin indent on     " required! 
+filetype plugin indent on     " required!
 "
 " Brief help
 " :BundleList          - list configured bundles
